@@ -47,7 +47,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'rspec'
   spec.add_development_dependency 'webmock'
-  spec.add_runtime_dependency 'faraday'
+  spec.add_runtime_dependency 'faraday', '< 3'
   spec.add_runtime_dependency 'multi_json'
   spec.add_runtime_dependency 'mime-types'
 end

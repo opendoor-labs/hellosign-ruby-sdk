@@ -29,6 +29,10 @@ require 'hello_sign/resource'
 require 'hello_sign/api'
 require 'logger'
 
+if Faraday::VERSION.start_with?('2.')
+  require 'faraday/multipart'
+end
+
 module HelloSign
 
   # You'll need the HelloSign::Client to do just about everything, from creating
@@ -157,9 +161,17 @@ module HelloSign
       elsif auth_token
         connection.authorization :Bearer, auth_token
       elsif api_key
-        connection.basic_auth api_key, ''
+        if Faraday::VERSION.start_with?('2.')
+          connection.authorization :basic, api_key, ''
+        else
+          connection.basic_auth api_key, ''
+        end
       elsif email_address
-        connection.basic_auth email_address, password
+        if Faraday::VERSION.start_with?('2.')
+          connection.authorization :basic, email_address, password
+        else
+          connection.basic_auth email_address, password
+        end
       else
       end
       if proxy_uri
