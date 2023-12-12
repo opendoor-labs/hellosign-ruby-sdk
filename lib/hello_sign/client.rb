@@ -156,7 +156,6 @@ module HelloSign
         faraday.adapter :net_http
         faraday.options[:timeout] = timeout if timeout
       end
-binding.pry
       if options[:no_auth]
       elsif auth_token
         connection.authorization :Bearer, auth_token
